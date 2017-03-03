@@ -8,6 +8,7 @@ using Net.Pokeshot.JiveSdk.Models;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Net.Pokeshot.JiveSdk.Util;
 
 namespace Net.Pokeshot.JiveSdk.Clients
 {
@@ -377,7 +378,14 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 url = url.Remove(url.Length - 1);
             }
 
-            string json = JsonConvert.SerializeObject(person, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore, Formatting = Formatting.Indented });
+            string json = JsonConvert.SerializeObject(person, new JsonSerializerSettings {
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                Formatting = Formatting.Indented,
+                Converters = new[] { new UpdateDateTimeConverter() }
+            });
+
+            json = json.Replace($"\"id\": {person.id}", $"\"id\" : \"{person.id}\"");
+
             string result;
             try
             {
