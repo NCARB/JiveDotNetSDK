@@ -1846,6 +1846,60 @@ namespace Net.Pokeshot.JiveSdk.Clients
             return streamList;
         }
 
+        /// <summary>
+        /// Return a list of SecurityGroups that the specified user is a member of. Note that this list will NOT include any security groups that this person is an administrator of.
+        /// </summary>
+        /// <param name="personID">ID of the user for whom to return security groups</param>
+        /// <param name="fields">Fields to be returned (default value is "@owned")</param>
+        /// <returns>Group[]</returns>
+        public List<Group> GetSecurityGroups(int personID, List<string> fields = null)
+        {
+            List<Group> securityGroupList = new List<Group>();
+
+            string url = peopleUrl + "/" + personID + "/securityGroups";
+            if (fields != null && fields.Count > 0)
+            {
+                url += "?fields=";
+                foreach (var field in fields)
+                {
+                    url += field + ",";
+                }
+                // remove last comma
+                url = url.Remove(url.Length - 1);
+            }
+            while (true)
+            {
+                string json;
+                try
+                {
+                    json = GetAbsolute(url);
+                }
+                catch (HttpException e)
+                {
+                    Console.WriteLine(e.Message);
+                    switch (e.GetHttpCode())
+                    {
+                        case 403:
+                            throw new HttpException(e.WebEventCode, "Requester is not allowed to view security groups for the owning user", e);
+                        case 404:
+                            throw new HttpException(e.WebEventCode, "Specified user cannot be found", e);
+                        default:
+                            throw;
+                    }
+                }
+
+                JObject results = JObject.Parse(json);
+
+                securityGroupList.AddRange(results["list"].ToObject<List<Group>>());
+
+                if (results["links"] == null || results["links"]["next"] == null)
+                    break;
+                else
+                    url = results["links"]["next"].ToString();
+            }
+            return securityGroupList;
+        }
+
         //GetProfileFieldPrivacy()
         //GetProfileFieldsPrivacy()
         //GetProfileImage()
