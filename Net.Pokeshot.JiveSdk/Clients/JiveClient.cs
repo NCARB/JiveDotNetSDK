@@ -122,7 +122,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 // Calling methods should handle this exception on a case by case basis.
                 // The exception contains the returned status code. Jive documentation describes what to do in the case of each code.
                 string message = "Jive Request Failed. Got response " + ((int)activityResponse.StatusCode).ToString() + " " + activityResponse.StatusCode +
-                    " when making GET request to " + url + "\nUsername: " + _credential.UserName + "\nPassword: " + _credential.Password;
+                    " when making GET request to " + url;
                 throw new HttpException((int)activityResponse.StatusCode, message);
             }
             
@@ -166,7 +166,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 // Calling methods should handle this exception on a case by case basis.
                 // The exception contains the returned status code. Jive documentation describes what to do in the case of each code.
                 string message = "Jive Request Failed. Got response " + ((int)activityResponse.StatusCode).ToString() + " " + activityResponse.StatusCode +
-                    " when making GET request to " + url + "\nUsername: " + _credential.UserName + "\nPassword: " + _credential.Password;
+                    " when making GET request to " + url;
                 throw new HttpException((int)activityResponse.StatusCode, message);
             }
 
@@ -212,7 +212,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 // Calling methods should handle this exception on a case by case basis.
                 // The exception contains the returned status code. Jive documentation describes what to do in the case of each code.
                 string message = "Jive Request Failed. Got response " + ((int)activityResponse.StatusCode).ToString() + " " + activityResponse.StatusCode +
-                    " when making POST request to " + url + "\nUsername: " + _credential.UserName + "\nPassword: " + _credential.Password;
+                    " when making POST request to " + url;
                 throw new HttpException((int)activityResponse.StatusCode, message);
             }
 
@@ -260,7 +260,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 // Calling methods should handle this exception on a case by case basis.
                 // The exception contains the returned status code. Jive documentation describes what to do in the case of each code.
                 string message = "Jive Request Failed. Got response " + ((int)activityResponse.StatusCode).ToString() + " " + activityResponse.StatusCode +
-                    " when making PUT request to " + url + "\nUsername: " + _credential.UserName + "\nPassword: " + _credential.Password;
+                    " when making PUT request to " + url;
                 throw new HttpException((int)activityResponse.StatusCode, message);
             }
 
@@ -305,7 +305,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 // Calling methods should handle this exception on a case by case basis.
                 // The exception contains the returned status code. Jive documentation describes what to do in the case of each code.
                 string message = "Jive Request Failed. Got response " + ((int)activityResponse.StatusCode).ToString() + " " + activityResponse.StatusCode +
-                    " when making DELETE request to " + url + "\nUsername: " + _credential.UserName + "\nPassword: " + _credential.Password;
+                    " when making DELETE request to " + url;
                 throw new HttpException((int)activityResponse.StatusCode, message);
             }
 
