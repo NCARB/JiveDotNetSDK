@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,8 +31,10 @@ namespace Net.Pokeshot.JiveSdk.Models
 
     }
 
+    [DataContract]
     public class JivePerson
     {
+        [DataMember(IsRequired = false)]
         public bool enabled { get; set; }
         public bool external { get; set; }
         public bool externalContributor { get; set; }
