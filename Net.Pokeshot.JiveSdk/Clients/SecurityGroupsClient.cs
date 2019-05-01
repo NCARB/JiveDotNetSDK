@@ -115,5 +115,19 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 }
             }
         }
+
+
+        /// <summary>
+        /// Add the specified people as regular members of the specified security group.
+        /// </summary>
+        /// <param name="securityGroupID">ID of the security group to which regular members should be added</param>
+        /// <param name="personID">ID of the person for which to select memberships</param>
+        /// <returns>Category object representing the newly created category</returns>
+        public void RemoveMember(int securityGroupID, int personID)
+        {
+            //construct the url for the HTTP request based on the user specifications
+            string url = securityGroupsUrl + "/" + securityGroupID.ToString() + "/members/" + personID.ToString();
+            DeleteAbsolute(url);
+        }
     }
 }
