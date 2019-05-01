@@ -385,6 +385,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
             });
 
             json = json.Replace($"\"id\": {person.id}", $"\"id\" : \"{person.id}\"");
+            json = json.Replace($"\"_disabled\": true", $"\"enabled\" : false");
 
             string result;
             try

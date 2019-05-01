@@ -31,11 +31,10 @@ namespace Net.Pokeshot.JiveSdk.Models
 
     }
 
-    [DataContract]
     public class JivePerson
     {
-        [DataMember(IsRequired = false)]
         public bool enabled { get; set; }
+        public bool _disabled { get; set; } // not actual api property, used for disable action
         public bool external { get; set; }
         public bool externalContributor { get; set; }
         public List<ExternalIdentity> externalIdentities { get; set; }
