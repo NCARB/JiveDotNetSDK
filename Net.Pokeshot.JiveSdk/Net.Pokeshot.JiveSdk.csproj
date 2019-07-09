@@ -86,6 +86,7 @@
     <Compile Include="Clients\ContentsClient.cs" />
     <Compile Include="Clients\DeletedObjectsClient.cs" />
     <Compile Include="Clients\DESClient.cs" />
+    <Compile Include="Clients\JiveHttpException.cs" />
     <Compile Include="Models\Action.cs" />
     <Compile Include="Models\AddOn.cs" />
     <Compile Include="Models\Authorization.cs" />
