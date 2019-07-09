@@ -213,7 +213,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 // The exception contains the returned status code. Jive documentation describes what to do in the case of each code.
                 string message = "Jive Request Failed. Got response " + ((int)activityResponse.StatusCode).ToString() + " " + activityResponse.StatusCode +
                     " when making POST request to " + url;
-                throw new HttpException((int)activityResponse.StatusCode, message);
+                throw new JiveHttpException((int)activityResponse.StatusCode, message, json);
             }
 
             String myActivityResponse = activityResponse.Content.ReadAsStringAsync().Result;
@@ -261,7 +261,7 @@ namespace Net.Pokeshot.JiveSdk.Clients
                 // The exception contains the returned status code. Jive documentation describes what to do in the case of each code.
                 string message = "Jive Request Failed. Got response " + ((int)activityResponse.StatusCode).ToString() + " " + activityResponse.StatusCode +
                     " when making PUT request to " + url;
-                throw new HttpException((int)activityResponse.StatusCode, message);
+                throw new JiveHttpException((int)activityResponse.StatusCode, message, json);
             }
 
             String myActivityResponse = activityResponse.Content.ReadAsStringAsync().Result;
