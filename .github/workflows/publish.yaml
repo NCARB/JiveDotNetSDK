@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  - push
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: warrenbuckley/Setup-MSBuild@v1
+      - uses: nuget/setup-nuget@v1
+
+      - name: Restore
+        run: nuget restore Net.Pokeshot.JiveSdk.sln
+
+      - name: Build
+        run: msbuild Net.Pokeshot.JiveSdk.sln /p:Configuration=Release -verbosity:minimal
+
+  publish-nuget:
+    runs-on: windows-latest
+    needs: [build]
+    # tag a release as v1.0.0....
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: warrenbuckley/Setup-MSBuild@v1
+      - uses: nuget/setup-nuget@v1
+
+      - name: Restore
+        run: nuget restore Net.Pokeshot.JiveSdk.sln
+
+      - name: Build 
+        run: msbuild Net.Pokeshot.JiveSdk.sln /p:Configuration=Release
+
+      - name: Extract tag version
+        run: |
+          $env:GITHUB_REF -match "^refs/tags/v(.+)"
+          $versionTag = $Matches[1]
+          Write-Host "::set-env name=VERSION_TAG::$versionTag"
+
+      - name: Publish
+        working-directory: Net.Pokeshot.JiveSdk
+        env:
+          NUGET_SOURCE: https://www.myget.org/F/ncarb/api/v2/package
+          NUGET_SYMBOL_SOURCE: https://www.myget.org/F/ncarb/symbols/api/v2/package
+          NUGET_ACCESS_TOKEN: ${{ secrets.NUGET_ACCESS_TOKEN }}
+        run: |
+          nuget pack -Version $env:VERSION_TAG -Properties Configuration=Release -Symbols
+          nuget push *.nupkg $env:NUGET_ACCESS_TOKEN -Source $env:NUGET_SOURCE -SymbolSource $env:NUGET_SYMBOL_SOURCE -SymbolApiKey $env:NUGET_ACCESS_TOKEN
