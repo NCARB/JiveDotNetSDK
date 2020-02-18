@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: warrenbuckley/Setup-MSBuild@v1
+      - uses: actions/setup-dotnet@v1        
       - uses: nuget/setup-nuget@v1
 
       - name: Restore
@@ -28,6 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: warrenbuckley/Setup-MSBuild@v1
+      - uses: actions/setup-dotnet@v1        
       - uses: nuget/setup-nuget@v1
 
       - name: Restore
